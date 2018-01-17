@@ -68,7 +68,6 @@ _STATUS_SWRST = const(0x7F)
 
 _TIMER_STATUS = const(0x00)
 _TIMER_PWM = const(0x01)
-_TIMER_FREQ = const(0x02)
 
 _ADC_STATUS = const(0x00)
 _ADC_INTEN = const(0x02)
@@ -195,41 +194,11 @@ class Seesaw:
         else:
             self.write(_GPIO_BASE, _GPIO_BULK_CLR, cmd)
 
-
-    # def analog_write(self, pin, value):
-
-    def analog_write(self, pin, hivalue, lovalue, width):
+    def analog_write(self, pin, value):
         pin_mapping = [_PWM_0_PIN, _PWM_1_PIN, _PWM_2_PIN, _PWM_3_PIN]
         if pin in pin_mapping:
-
-#           cmd = bytearray([pin_mapping.index(pin), value])
-
-            cmd = bytearray([pin_mapping.index(pin), hivalue, lovalue, width])
+            cmd = bytearray([pin_mapping.index(pin), value])
             self.write(_TIMER_BASE, _TIMER_PWM, cmd)
-
-
-# factory code
-
-
-#    def analog_write(self, pin, value):
-#        pin_mapping = [_PWM_0_PIN, _PWM_1_PIN, _PWM_2_PIN, _PWM_3_PIN]
-#        if pin in pin_mapping:
-#            cmd = bytearray([pin_mapping.index(pin), value])
-#            self.write(_TIMER_BASE, _TIMER_PWM, cmd)
-
-
-
-# new code - setPWMFreq()
-
-    def setPWMFreq(self, pin, value):
-        pin_mapping = [_PWM_0_PIN, _PWM_1_PIN, _PWM_2_PIN, _PWM_3_PIN]
-        if pin in pin_mapping:
-            # cmd = bytearray([p, (value>>8), value])
-            cmd = bytearray([pin_mapping.index(pin), (value>>8), value])
-            self.write(_TIMER_BASE, _TIMER_FREQ, cmd)
-
-
-
 
     # def enable_sercom_data_rdy_interrupt(self, sercom):
     #

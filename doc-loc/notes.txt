@@ -1,0 +1,6 @@
+
+  17 Jan 2017
+
+  pin 6 of seesaw pwm for servo motor
+
+
